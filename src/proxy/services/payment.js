@@ -1,3 +1,5 @@
+import { DebitCardPaymentError } from "../utils/errors";
+
 /**
  * The Httpclient settings
  * @typedef {Object} PaymentServiceProps
@@ -15,14 +17,20 @@ export class PaymentService {
   }
 
   async payWithCreditCard(props) {
-    const httpClient = new HttpClient().setup().setTraceId(this.traceId);
+    try {
+      const httpClient = new HttpClient({ batseguroToken: "adasd" })
+        .setup()
+        .setTraceId(this.traceId);
 
-    const response = await httpClient.post({
-      path: "/payment/creditcard",
-      body: props,
-    });
+      const response = await httpClient.post({
+        path: "/payment/creditcard",
+        body: props,
+      });
 
-    return response;
+      return response;
+    } catch (error) {
+      throw new DebitCardPaymentError("error bugado");
+    }
   }
 
   async payWithDebitCard(props) {

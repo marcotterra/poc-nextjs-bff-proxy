@@ -1,4 +1,5 @@
 import { PaymentService } from "../services/payment";
+import { HttpRequest } from "../utils/http-adapter";
 
 export class PaymentController {
   /**
@@ -13,9 +14,9 @@ export class PaymentController {
       const service = new PaymentService(traceId);
       const response = await service.payWithDebitCard(body);
 
-      return res.json({ route: "debitcard", response });
+      return res.json(HttpRequest.sucess(response));
     } catch (error) {
-      return res.json({ error: true });
+      return res.json(HttpRequest.error(error));
     }
   }
 
