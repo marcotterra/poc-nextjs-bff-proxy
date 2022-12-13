@@ -1,4 +1,4 @@
-import { DebitCardPaymentError } from "../utils/errors";
+import { DebitCardPaymentError } from "../common/errors";
 
 /**
  * The Httpclient settings
@@ -6,7 +6,7 @@ import { DebitCardPaymentError } from "../utils/errors";
  * @property {string} traceId - .
  */
 
-import { HttpClient } from "../../infrastructure/http-client";
+import { HttpClient } from "../../utils/http-client";
 
 export class PaymentService {
   /**

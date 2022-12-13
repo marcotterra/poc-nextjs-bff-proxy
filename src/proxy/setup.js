@@ -1,4 +1,4 @@
-import { HttpClient } from "../infrastructure/http-client";
+import { HttpClient } from "../utils/http-client";
 import { PaymentController } from "./controllers/payment";
 import { buildPaymentRoutes } from "./routes/payment";
 

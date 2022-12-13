@@ -1,5 +1,5 @@
 import { PaymentService } from "../services/payment";
-import { HttpRequest } from "../utils/http-adapter";
+import { HttpRequest } from "../common/http-adapter";
 
 export class PaymentController {
   /**
