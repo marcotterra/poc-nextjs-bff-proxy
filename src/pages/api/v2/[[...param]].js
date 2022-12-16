@@ -1,8 +1,8 @@
 import { createRouter } from "next-connect";
+import { setupRouter } from "../../../proxy/setup";
 
-import { buildProxy } from "../../../proxy/setup";
+const router = createRouter();
 
-const router = createRouter() //
-  .use("/", buildProxy);
+setupRouter(router);
 
 export default router.handler();

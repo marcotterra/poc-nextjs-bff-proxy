@@ -1,23 +1,16 @@
-import { HttpClient } from "../utils/http-client";
 import { PaymentController } from "./controllers/payment";
-import { buildPaymentRoutes } from "./routes/payment";
+import { PaymentRouter } from "./routes/payment";
 
 /**
- * @param {import('next-connect/dist/types/types').NextHandler} connect
+ * @param {import('next-connect/dist/types/node').NodeRouter} router
  */
-export function setupRouter(connect) {
+export function setupRouter(router) {
   const paymentController = new PaymentController();
-  const paymentRouter = new PaymentRouter(connect, paymentController);
+  const paymentRouter = new PaymentRouter({
+    router,
+    controller: paymentController,
+  });
 
-  const freightController = new FreigthController();
-  const freightRouter = new PaymentRouter(connect, freightController);
-
-  return (...options) => {
-    // console.log({ params });
-    // console.log({ options });
-
-    connect //
-      .use(paymentRouter)
-      .use(freightRouter);
-  };
+  return router //
+    .use(paymentRouter.getRouter());
 }

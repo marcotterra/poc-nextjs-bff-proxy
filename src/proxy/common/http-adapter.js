@@ -17,8 +17,8 @@ export class HttpRequest {
     }
 
     return {
-      code: "generic",
-      message: "generic",
+      code: 500,
+      message: "Something went wrong",
     };
   }
 }

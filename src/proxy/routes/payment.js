@@ -1,15 +1,31 @@
 /**
- * @param {import('next-connect').NextHandler} connect
- * @param {import('../controllers/payment').PaymentController} controller
+ * The PaymentRouter settings
+ * @typedef {Object} PaymentRouterProps
+ * @property {import('next-connect/dist/types/node').NodeRouter} router
+ * @property {import('../controllers/payment').PaymentController} controller
  */
-const buildPaymentRoutes = (connect, controller) => {
-  // console.log("buildPaymentRoutes");
 
-  connect
-    .get("/api/v2/payment/debitcard", controller.debitCard)
-    .get("/api/v2/payment/creditcard", controller.creditCard);
+export class PaymentRouter {
+  #router;
+  #controller;
 
-  return connect;
-};
+  /**
+   * @param {PaymentRouterProps} props
+   */
+  constructor({ router, controller }) {
+    this.#router = router.clone();
+    this.#controller = controller;
 
-export { buildPaymentRoutes };
+    this.#buildRoutes();
+  }
+
+  #buildRoutes() {
+    this.#router
+      .get("/api/v2/payment/debitcard", this.#controller.debitCard)
+      .get("/api/v2/payment/creditcard", this.#controller.creditCard);
+  }
+
+  getRouter() {
+    return this.#router;
+  }
+}

@@ -1,4 +1,4 @@
-import { DebitCardPaymentError } from "../common/errors";
+import { CreditCardPaymentError } from "../common/errors";
 
 /**
  * The Httpclient settings
@@ -16,24 +16,24 @@ export class PaymentService {
     this.traceId = props?.traceId;
   }
 
-  async payWithCreditCard(props) {
+  async payWithCreditCard(body) {
     try {
-      const httpClient = new HttpClient({ batseguroToken: "adasd" })
-        .setup()
-        .setTraceId(this.traceId);
+      console.log({ body });
+      if (body === "toThrow") {
+        throw new Error("nothing");
+      }
 
-      const response = await httpClient.post({
-        path: "/payment/creditcard",
-        body: props,
-      });
-
-      return response;
-    } catch (error) {
-      throw new DebitCardPaymentError("error bugado");
+      return {
+        route: "/api/v2/payment/creditcard",
+      };
+    } catch {
+      throw new CreditCardPaymentError("random was more than 50");
     }
   }
 
   async payWithDebitCard(props) {
+    console.log("traceid", this.traceId);
+
     const httpClient = new HttpClient().setup().setTraceId(this.traceId);
 
     const response = await httpClient.post({

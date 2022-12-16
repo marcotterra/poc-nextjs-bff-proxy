@@ -26,15 +26,16 @@ export class PaymentController {
    */
   async creditCard(req, res) {
     try {
-      const { traceId = "" } = req.headers;
-      const { body } = req;
+      const rand = Math.random().toFixed(2) * 100;
 
-      const service = new PaymentService(traceId);
-      const response = await service.payWithCreditCard(body);
+      const service = new PaymentService({ traceId: "" });
+      const response = await service.payWithCreditCard(
+        rand > 50 ? "toThrow" : ""
+      );
 
-      return res.json({ route: "creditCard", response });
+      return res.json(HttpRequest.sucess({ response }));
     } catch (error) {
-      return res.json({ error: true });
+      return res.json(HttpRequest.error(error));
     }
   }
 }

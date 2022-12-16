@@ -7,9 +7,10 @@ export class ProxyError extends Error {
   }
 }
 
-export class DebitCardPaymentError extends ProxyError {
+export class CreditCardPaymentError extends ProxyError {
   constructor(message) {
     super(message);
+    this.name = "CreditCardPaymentError";
     this.errorCode = 1023;
     this.httpCode = 400;
   }
